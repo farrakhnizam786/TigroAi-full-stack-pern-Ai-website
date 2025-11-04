@@ -36,4 +36,4 @@ root.render(
       </BrowserRouter>
     </ClerkProvider>
   </React.StrictMode>
-);
+)

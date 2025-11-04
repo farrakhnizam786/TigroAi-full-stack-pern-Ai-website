@@ -3,7 +3,7 @@ import { Edit, Sparkles } from 'lucide-react';
 import axios, { Axios } from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
-import ReactMarkdown from 'react-markdown'; // ✅ Import for Markdown rendering
+import Markdown from 'react-markdown'; // ✅ Import for Markdown rendering
 
 const WriteArticle = () => {
   const articleLengths = [
@@ -111,10 +111,10 @@ const WriteArticle = () => {
           </div>
         ) : content ? (
           <div className='overflow-y-auto max-h-[440px] pr-2'>
-            <div className='prose dark:prose-invert max-w-none reset-tw'>
+            <div className='reset-tw'>
 
             {/* ✅ Replaced dangerouslySetInnerHTML with ReactMarkdown */}
-            <ReactMarkdown>{content}</ReactMarkdown>
+            <Markdown>{content}</Markdown>
             </div>
           </div>
         ) : (

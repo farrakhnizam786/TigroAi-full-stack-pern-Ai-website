@@ -36,7 +36,8 @@ const Community = () => {
   const imageLikeToggle = async (id)=> {
     try {
       const {data} = await axios.get('/api/user/get-published-creations', {id} ,{
-        headers : {authorization : `Bearer ${await getToken()}`} })
+        headers : {authorization : `Bearer ${await getToken()}`}
+      })
       if (data.success){
         toast.success(data.message)
         await fetchCreations()
