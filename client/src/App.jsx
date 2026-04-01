@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import WriteArticle from './pages/WriteArticle';
@@ -10,19 +10,19 @@ import GenerateImages from "./pages/GenerateImages";
 import RemoveObject from "./pages/RemoveObject";
 import ReviewResume from "./pages/ReviewResume";
 import Community from "./pages/Community";
-import {Toaster} from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 
 const App = () => {
-// import { useAuth } from "@clerk/clerk-react";
-// import { useEffect } from "react";
-// // const { getToken } = useAuth();
+  // import { useAuth } from "@clerk/clerk-react";
+  // import { useEffect } from "react";
+  // // const { getToken } = useAuth();
 
-// // useEffect(() => {
-//   //   getToken().then((token) => console.log(token)); // Fixed variable name (Token -> token)
-//   // }, [getToken]);
+  // // useEffect(() => {
+  //   //   getToken().then((token) => console.log(token)); // Fixed variable name (Token -> token)
+  //   // }, [getToken]);
 
-  
+
   return (
     <div className="app">
       <Toaster />
