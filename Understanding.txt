@@ -1,0 +1,104 @@
+Project Name: Tigro Ai
+Ek full-stack application jo users ko AI-powered tools (Content Writing, Image Generation, Background Removal) provide karta hai ek hi dashboard par.
+
+🚀 Tech Stack
+Frontend: React.js, Tailwind CSS (Styling), React Router Dom (Navigation), Lucide-React (Icons).
+
+Backend: Node.js, Express.js.
+
+Database: Neon Database (PostgreSQL/Serverless).
+
+Authentication: Clerk (Secure User Login/Middleware).
+
+Storage: Cloudinary (Images save karne ke liye).
+
+AI Models: OpenAI API / Gemini API (Content & Image generation ke liye).
+
+✨ Key Features
+Smart Writing: Blog titles aur full articles generate karna.
+
+Image Processing: Background removal aur image generation.
+
+Career Tool: Resume Reviewer (pdf-parse ka use karke).
+
+Security: Clerk middleware use kiya hai taaki sirf logged-in users hi API access kar sakein.
+
+💡 Interview Preparation: Top 5 Questions & Answers
+Agar interviewer tumhare project par sawal pooche, toh ye answers dimaag mein rakhna:
+
+Q1: Is project ka architecture kya hai?
+
+Answer: "Sir, ye ek MERN-style architecture hai (halanki humne Neon DB use kiya hai). Frontend React par hai jo backend (Express) ko REST API calls bhejta hai Axios ke zariye. Backend Clerk se user verify karta hai aur phir specific AI service (OpenAI/Gemini) ya Cloudinary ko request bhejta hai."
+
+Q2: Clerk Middleware ka kya kaam hai tumhare server.js mein?
+
+Answer: "Ye security ke liye hai. app.use(requireAuth()) line ensures karti hai ki koi bhi random person meri AI APIs use karke mera bill na badha de. Sirf wahi request aage jayegi jiske paas valid Clerk session token hoga."
+
+Q3: Cloudinary kyun use kiya?
+
+Answer: "Images ko direct database mein save karna heavy hota hai. Isliye maine Cloudinary use kiya jo images ko cloud par host karta hai aur humein ek 'URL' deta hai, jise hum database mein save kar lete hain."
+
+Q4: 6 mahine pehle banaya tha, agar aaj ismein 'History' feature dalna ho toh kaise karoge?
+
+Answer: "Kyunki mere paas Neon Database connected hai, main ek 'History' table banaunga. Jab bhi user koi article ya image generate karega, main user ki clerkId ke saath us result ko database mein Save kar dunga, taaki wo baad mein dashboard par dikh sake."
+
+Q5: pdf-parse ka use karke Resume Review kaise kaam kar raha hai?
+
+Answer: "User apna PDF upload karta hai, backend par pdf-parse us PDF se text nikalta hai (Extract karta hai). Phir wo text main AI model ko bhejta hoon ek prompt ke saath ki 'Is resume ko analyze karo', aur AI uska feedback wapas bhej deta hai."
+
+
+1. Middleware Kya Hota Hai? (The Guard/Filter)
+Sawal: "Interview mein agar pucha jaye ki app.use(clerkMiddleware()) ka kya role hai, toh kya kahoge?"
+
+Detail:
+Middleware ek "intermediate" function hota hai jo request aur response ke beech mein baithta hai. Jab user aapke server ko request bhejta hai, toh wo direct route (jaise /api/ai) tak nahi pahunchti. Pehle middleware use "check" karta hai.
+
+Kaam: Authentication check karna, logs maintain karna, ya data ko format karna.
+
+Example: Tumhare code mein requireAuth() ek middleware hai. Agar user login nahi hai, toh ye middleware request ko wahin rok dega aur error bhej dega, aage ke code ko chalne hi nahi dega.
+
+2. Clerk Authentication (The Identity Provider)
+Sawal: "Hum khud ka login system (JWT + Bcrypt) kyun nahi banate? Clerk use karne ka fayda kya hai?"
+
+Detail:
+Clerk ek Auth-as-a-Service platform hai.
+
+Security: Password hashing, Session management, aur Multi-factor Authentication (MFA) Clerk handle karta hai. Khud banane mein security risk hota hai.
+
+Social Login: Google, GitHub, ya Facebook login sirf ek click mein add ho jata hai.
+
+User Management: Tumhe user ka dashboard mil jata hai jahan se tum dekh sakte ho kisne kab login kiya.
+
+Frontend-Backend Sync: Clerk frontend par useAuth() hook deta hai aur backend par clerkMiddleware, jisse dono side sync rehti hain.
+
+3. Neon Database (Serverless PostgreSQL)
+Sawal: "Neon DB kya hai aur ye normal MySQL ya MongoDB se alag kyun lag raha hai?"
+
+Detail:
+Neon ek Serverless Postgres database hai.
+
+Serverless ka matlab: Agar tumhara app koi use nahi kar raha, toh database "sleep" mode mein chala jata hai aur tumhare paise/resources bachte hain. Jab request aati hai, wo turant "wake up" ho jata hai.
+
+Branching: Jaise Git mein branches hoti hain, Neon tumhe database ki branches banane deta hai. Tum main data ko bina chhede naye feature test kar sakte ho.
+
+Scaling: Ye automatically handle karta hai ki agar 1000 users ek saath aa jayein toh database kaise manage hoga.
+
+
+Shutterstock
+Explore
+4. Next Project ke liye Checklist (Key Learning Points)
+Jab tum agla project banao, toh in 3 "Deep" cheezon par dhyan dena:
+
+Webhooks (Very Important):
+
+Abhi tum Clerk use kar rahe ho, lekin agar tumhe user ka data (Email, Name) apne Neon database mein bhi save karna ho "automatically" jaise hi wo signup kare, toh tumhe Clerk Webhooks seekhne chahiye.
+
+API Rate Limiting:
+
+Tum Gemini API use kar rahe ho, jo mehngi ho sakti hai. Agle project mein ye sochna: "Main kaise rok sakta hoon ki ek user din mein sirf 5 articles hi generate kar sake?" Iske liye express-rate-limit jaise middleware use hote hain.
+
+Environment Variables (.env) Security:
+
+Hamesha dhyan rakho ki .env file kabhi GitHub par upload na ho (.gitignore mein daalna). Interviewer aksar puchte hain: "Agar tumhari API key leak ho gayi toh kya karoge?"
+
+Answer: "Main turant provider (Gemini/Clerk) par jaakar key 'Revoke' (cancel) karunga aur nayi key generate karunga."
