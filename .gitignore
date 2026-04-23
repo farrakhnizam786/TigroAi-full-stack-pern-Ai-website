@@ -8,3 +8,6 @@ server/test-gemini-2.js
 server/test-gemini-native.js
 server/test-models.js
 server/node_modules
+
+.antigravity
+.cache

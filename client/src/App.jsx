@@ -1,6 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+<<<<<<< HEAD
 import Home from './pages/Home';
+=======
+import Home from "./pages/Home";
+>>>>>>> 1ee6fde (chore: remove antigravity and cache from tracking)
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import WriteArticle from './pages/WriteArticle';
