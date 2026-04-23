@@ -1,4 +1,6 @@
-import Home from "./pages/Home";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/home";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import WriteArticle from './pages/WriteArticle';
@@ -9,7 +11,6 @@ import RemoveObject from "./pages/RemoveObject";
 import ReviewResume from "./pages/ReviewResume";
 import Community from "./pages/Community";
 import { Toaster } from 'react-hot-toast'
-import { Routes, Route } from "react-router-dom";
 
 
 const App = () => {

@@ -1,9 +1,11 @@
-import { Hash, Sparkles, Edit } from 'lucide-react';
+import { Hash, Sparkles, Edit, Globe } from 'lucide-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
 import { useAuth } from '@clerk/clerk-react';
 import axios from 'axios';
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const BlogTitles = () => {
   const blogCategories = [
@@ -15,6 +17,7 @@ const BlogTitles = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
+  const [publish, setPublish] = useState(false);
 
   const { getToken } = useAuth();
 
@@ -25,17 +28,18 @@ const BlogTitles = () => {
       setContent('');
       const prompt = `Generate a blog title for the keyword "${input}" in the category "${selectedCategory}"`;
       const { data } = await axios.post(
-        'http://localhost:3000/api/ai/generate-blog-title',
-        { prompt },
+        '/api/ai/generate-blog-title',
+        { prompt, publish },
         { headers: { Authorization: `Bearer ${await getToken()}` } }
       );
       if (data.success) {
         setContent(data.content);
+        toast.success(publish ? 'Blog title generated & published!' : 'Blog title generated!');
       } else {
         toast.error(data.message || 'Failed to generate title');
       }
     } catch (error) {
-      toast.error(error.message || 'Request failed');
+      toast.error(error.response?.data?.message || error.message || 'Request failed');
     } finally {
       setLoading(false);
     }
@@ -72,17 +76,30 @@ const BlogTitles = () => {
               <span
                 key={item}
                 onClick={() => setSelectedCategory(item)}
-                className={`text-xs px-4 py-2 border rounded-full cursor-pointer transition-colors ${
-                  selectedCategory === item
+                className={`text-xs px-4 py-2 border rounded-full cursor-pointer transition-colors ${selectedCategory === item
                     ? 'bg-[#5044E5] text-white border-[#5044E5]'
                     : 'text-gray-500 border-gray-300 hover:bg-slate-100 dark:hover:bg-slate-700'
-                }`}
+                  }`}
               >
                 {item}
               </span>
             ))}
           </div>
         </div>
+
+        {/* Publish toggle */}
+        <label className='flex items-center gap-3 cursor-pointer select-none'>
+          <div
+            onClick={() => setPublish(!publish)}
+            className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${publish ? 'bg-[#5044E5]' : 'bg-gray-300 dark:bg-slate-600'}`}
+          >
+            <div className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${publish ? 'translate-x-5' : ''}`} />
+          </div>
+          <div className='flex items-center gap-1.5'>
+            <Globe className='w-4 h-4 text-gray-500' />
+            <span className='text-sm text-gray-600 dark:text-slate-400'>Publish to Community</span>
+          </div>
+        </label>
 
         <button
           disabled={loading}
@@ -114,7 +131,7 @@ const BlogTitles = () => {
             <div className='animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500'></div>
           </div>
         ) : !content ? (
-          <div className='flex-1 flex justify-center items-center'>
+          <div className='flex-1 flex justify-center items-center h-48'>
             <div className='text-gray-400 gap-5 flex flex-col items-center'>
               <Hash className='w-9 h-9' />
               <p className='text-sm'>

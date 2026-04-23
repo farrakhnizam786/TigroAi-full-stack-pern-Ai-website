@@ -11,7 +11,7 @@ const GenerateImages = () => {
 
   const [selectedStyle, setSelectedStyle] = useState('Realistic');
   const [input, setInput] = useState('');
-  const [Publish, setPublish] = useState(false);
+  const [publish, setPublish] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
 
@@ -25,8 +25,8 @@ const GenerateImages = () => {
       const prompt = `Generate an image of ${input} in style ${selectedStyle}`;
 
       const { data } = await axios.post(
-        'http://localhost:3000/api/ai/generate-image',
-        { prompt, Publish },
+        '/api/ai/generate-image',
+        { prompt, publish },
         { headers: { Authorization: `Bearer ${await getToken()}` } }
       );
 
@@ -90,7 +90,7 @@ const GenerateImages = () => {
             <input
               type='checkbox'
               onChange={(e) => setPublish(e.target.checked)}
-              checked={Publish}
+              checked={publish}
               className='sr-only peer'
             />
             <div className='w-9 h-5 bg-slate-300 rounded-full peer-checked:bg-green-500 transition'></div>
@@ -102,7 +102,7 @@ const GenerateImages = () => {
         <button
           disabled={loading}
           type='submit'
-          className='w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#00ad25] to-[#04ff50] px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer transition-colors'
+          className='w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#00ad25] to-[#059669] px-4 py-2.5 mt-6 text-white text-sm font-medium rounded-xl cursor-pointer hover:opacity-90 transition-opacity shadow-md shadow-green-200'
         >
           {loading ? (
             <span className='w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin border-white'></span>

@@ -1,2 +1,10 @@
 .vercel
 .env*.local
+
+server/.env
+server/test.js
+server/test-gemini.js
+server/test-gemini-2.js
+server/test-gemini-native.js
+server/test-models.js
+server/node_modules
