@@ -1,10 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-import Home from './pages/Home';
-=======
 import Home from "./pages/Home";
->>>>>>> 1ee6fde (chore: remove antigravity and cache from tracking)
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import WriteArticle from './pages/WriteArticle';
@@ -16,8 +12,8 @@ import ReviewResume from "./pages/ReviewResume";
 import Community from "./pages/Community";
 import { Toaster } from 'react-hot-toast'
 
-
 const App = () => {
+
   // import { useAuth } from "@clerk/clerk-react";
   // import { useEffect } from "react";
   // // const { getToken } = useAuth();
@@ -26,7 +22,7 @@ const App = () => {
   //   //   getToken().then((token) => console.log(token)); // Fixed variable name (Token -> token)
   //   // }, [getToken]);
 
-
+  
   return (
     <div className="app">
       <Toaster />
